@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TaskService } from '../../services/task.service';
 import * as TasksActions  from '../actions/tasks.actions';
-import { catchError, map, mergeMap } from 'rxjs';
+import { catchError, map, mergeMap, of } from 'rxjs';
 
 
 
@@ -21,7 +21,7 @@ export class TasksEffects {
     mergeMap(() => this.taskService.getTasks()
     .pipe(
       map(tasks => TasksActions.loadTasksSuccess({ tasks })),
-      catchError(error => [TasksActions.loadTasksFailure({ error })])
+      catchError(error => of(TasksActions.loadTasksFailure({ error })))
       ))
     )
   )
@@ -32,7 +32,7 @@ export class TasksEffects {
       mergeMap(({ task }) => this.taskService.createTask(task)
       .pipe(
         map(task => TasksActions.createTaskSuccess({ task })),
-        catchError(error => [TasksActions.createTaskFailure({ error })])
+        catchError(error => of(TasksActions.createTaskFailure({ error })))
       ))
     )
   )
@@ -43,7 +43,7 @@ export class TasksEffects {
       mergeMap(({ task }) => this.taskService.updateTask(task)
       .pipe(
         map(task => TasksActions.updateTaskSuccess({ task })),
-        catchError(error => [TasksActions.updateTaskFailure({ error })])
+        catchError(error => of(TasksActions.updateTaskFailure({ error })))
       ))
     )
   )
@@ -54,7 +54,7 @@ export class TasksEffects {
       mergeMap(({ task }) => this.taskService.deleteTask(task.id)
       .pipe(
         map(() => TasksActions.deleteTaskSuccess({ task })),
-        catchError(error => [TasksActions.deleteTaskFailure({ error })])
+        catchError(error => of(TasksActions.deleteTaskFailure({ error })))
       ))
     )
   )

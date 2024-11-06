@@ -8,6 +8,8 @@ export interface TasksState extends EntityState<Task> {
   error: any;
 }
 
+export const tasksFeatureKey = 'tasks';
+
 export const adapter: EntityAdapter<Task> = createEntityAdapter<Task>();
 
 export const initialState: TasksState = adapter.getInitialState({
