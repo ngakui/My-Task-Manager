@@ -1,1 +1,7 @@
-<p>task-item works!</p>
+<div class="task-item">
+    <h3>{{ task.title }}</h3>
+    <p>{{ task.description }}</p>
+    <p>Due: {{ task.dueDate | date }}</p>
+    <button mat-button color="warn" (click)="onDelete()">Delete</button>
+</div>
+  
