@@ -1,1 +1,3 @@
-<p>task-detail works!</p>
+<div *ngIf="task$ | async as task">
+    <app-task-form [task]="task" (save)="onUpdate($event)"></app-task-form>
+</div>

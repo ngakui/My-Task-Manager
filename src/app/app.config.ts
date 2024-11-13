@@ -9,6 +9,7 @@ import { provideEffects } from '@ngrx/effects';
 import { tasksFeatureKey, tasksReducer } from './features/tasks/store/reducers/tasks.reducer';
 import { TasksEffects } from './features/tasks/store/effects/tasks.effects';
 import { provideHttpClient } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), 
@@ -23,6 +24,6 @@ export const appConfig: ApplicationConfig = {
       traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
       connectInZone: true // If set to true, the connection is established within the Angular zone
     }), 
-    provideRouterStore(),
+    provideRouterStore(), provideAnimationsAsync(),
   ]
 };

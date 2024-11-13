@@ -6,11 +6,11 @@ import { provideState } from '@ngrx/store';
 import { tasksFeatureKey, tasksReducer } from './store/reducers/tasks.reducer';
 
 const routes: Routes = [
-  { path: '', 
-    providers: [
-      provideState({name: tasksFeatureKey, reducer: tasksReducer}),
-    ]
-  }      
+  // { path: '', 
+  //   providers: [
+  //     provideState({name: tasksFeatureKey, reducer: tasksReducer}),
+  //   ]
+  // }      
 ];
 
 @NgModule({
