@@ -16,7 +16,6 @@ import { TasksEffects } from './store/effects/tasks.effects';
   ],
   declarations: [],
   imports: [
-    CommonModule,
     TasksRoutingModule,
     SharedModule,
     StoreModule.forFeature(tasksFeatureKey, tasksReducer),
