@@ -1,7 +1,6 @@
-<div class="task-item">
-    <h3>{{ task.title }}</h3>
+<p-card [header]="task.title">
+    <!-- <h3>{{ task.title }}</h3> -->
     <p>{{ task.description }}</p>
     <p>Due: {{ task.dueDate | date }}</p>
-    <button mat-button color="warn" (click)="onDelete()">Delete</button>
-</div>
-  
+    <p-button label="Delete" (click)="onDelete()"></p-button>
+</p-card>

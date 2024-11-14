@@ -6,11 +6,16 @@ import * as TasksActions  from '../../store/actions/tasks.actions';
 import { selectAllTasks, selectError, selectLoading } from '../../store/selectors/tasks.selectors';
 import { CommonModule } from '@angular/common';
 import { TaskItemComponent } from "../task-item/task-item.component";
+import { PanelModule } from 'primeng/panel';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, TaskItemComponent],
+  imports: [
+    CommonModule, 
+    TaskItemComponent,
+    PanelModule
+  ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css'
 })
@@ -25,7 +30,7 @@ export class TaskListComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(TasksActions.loadTasks());
     this.tasks$ = this.store.pipe(select(selectAllTasks));
-    console.log('GEt all tasks',this.tasks$);
+    
     this.loading$ = this.store.pipe(select(selectLoading));
     this.error$ = this.store.pipe(select(selectError));
   }

@@ -5,9 +5,7 @@
 <div *ngIf="error$ | async as error" class="error">
     {{ error.message }}
 </div>
-  
-<ul>
-    <li *ngFor="let task of tasks$ | async">
-        <app-task-item [task]="task" (deleted)="onDelete(task)"></app-task-item>
-    </li>
-</ul>
+
+<p-panel header="Tasks">  
+    <app-task-item *ngFor="let task of tasks$ | async" [task]="task" (deleted)="onDelete(task)"></app-task-item>
+</p-panel>
