@@ -7,6 +7,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-task-form',
@@ -16,6 +17,7 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatCheckboxModule,
     ReactiveFormsModule,
     MatButtonModule
