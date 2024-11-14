@@ -5,8 +5,8 @@ export const loadTasks = createAction('[Tasks] Load Tasks');
 export const loadTasksSuccess = createAction('[Tasks API] Load Tasks Success', props<{ tasks: Task[] }>());
 export const loadTasksFailure = createAction('[Tasks API] Load Tasks Failure', props<{ error: any }>());
 
-export const loadOneTasks = createAction('[Task] Load Task', props<{ id: string }>());
-export const loadOneTaskSuccess = createAction('[Task API] Load Task Success', props<{ task: Task[] }>());
+export const loadOneTask = createAction('[Task] Load Task', props<{ id: string }>());
+export const loadOneTaskSuccess = createAction('[Task API] Load Task Success', props<{ task: Task }>());
 export const loadOneTaskFailure = createAction('[Task API] Load Task Failure', props<{ error: any }>());
 
 

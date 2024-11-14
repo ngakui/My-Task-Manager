@@ -26,6 +26,17 @@ export class TasksEffects {
     )
   )
 
+  loadOneTask$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TasksActions.loadOneTask),
+      mergeMap(({ id }) => this.taskService.getTask(id)
+      .pipe(
+        map(task => TasksActions.loadOneTaskSuccess({ task })),
+        catchError(error => of(TasksActions.loadOneTaskFailure({ error })))
+      ))
+    )
+  )
+
   createTask$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TasksActions.createTask),

@@ -25,8 +25,11 @@ export const tasksReducer = createReducer(
   on(TasksActions.loadTasksSuccess, (state, { tasks }) => {
     return adapter.setAll(tasks, { ...state, loading: false });
   }),
-  on(TasksActions.loadTasksFailure, (state, { error }) => {
-    return { ...state, loading: false, error };
+  on(TasksActions.loadOneTask, state => {
+    return { ...state, loading: true };
+  }),
+  on(TasksActions.loadOneTaskSuccess, (state, { task }) => {
+    return adapter.setOne(task, { ...state, loading: false});
   }),
   on(TasksActions.createTaskSuccess, (state, { task }) => {
     return adapter.addOne(task, state);
@@ -37,7 +40,7 @@ export const tasksReducer = createReducer(
   on(TasksActions.deleteTaskSuccess, (state, { task }) => {
     return adapter.removeOne(task.id, state);
   }),
-  on(TasksActions.createTaskFailure, TasksActions.updateTaskFailure, TasksActions.deleteTaskFailure, (state, { error }) => {
+  on(TasksActions.loadTasksFailure, TasksActions.loadOneTaskFailure, TasksActions.createTaskFailure, TasksActions.updateTaskFailure, TasksActions.deleteTaskFailure, (state, { error }) => {
     return { ...state, error };
   })
 );
