@@ -24,6 +24,7 @@ export class TaskDetailComponent {
   ngOnInit(): void {
     const taskId = this.route.snapshot.paramMap.get('id') || '';
     console.log('Task ID', taskId);
+    this.store.dispatch(TasksActions.loadOneTask({ id: taskId }));
     this.task$ = this.store.pipe(
       select(selectTaskById(taskId)),
       filter((task): task is Task => task !== undefined)
