@@ -1,6 +1,13 @@
-<p-card [header]="task.title">
-    <!-- <h3>{{ task.title }}</h3> -->
+<div #taskId [class]="taskClass">
+    <div class="flex flex-row justify-between">
+        <h3>{{ task.title }}</h3>
+        <i class="pi pi-pencil" (click)="showDialog()"></i>
+    </div>
     <p>{{ task.description }}</p>
     <p>Due: {{ task.dueDate | date }}</p>
-    <p-button label="Delete" (click)="onDelete()"></p-button>
-</p-card>
+    <p>status: {{ task.status }}</p>
+    <!-- <p-button label="Delete" (click)="onDelete()"></p-button> -->
+</div>
+<p-dialog header="Edit Task" transitionOptions="500ms cubic-bezier(0, 0, 0.2, 1)" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <app-task-detail [task]="task"></app-task-detail>
+</p-dialog>
