@@ -51,7 +51,7 @@ export class TaskFormComponent implements OnInit {
         ...this.taskForm.value,
         id: this.task?.id || Math.random().toString(36).substr(2, 9)
       } as Task;
-      this.save.emit(this.taskForm.value);
+      this.save.emit(task);
     }
   }
 }
