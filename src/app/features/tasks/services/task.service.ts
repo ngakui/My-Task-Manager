@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Task } from '../models/task.model';
+import { Task, TaskStatus } from '../models/task.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,8 @@ export class TaskService {
       description: 'Description 1',
       creationDate: new Date(),
       dueDate: new Date(),
-      completed: false
+      completed: false,
+      status: TaskStatus.Todo
     },
     {
       id: '2',
@@ -24,7 +25,8 @@ export class TaskService {
       description: 'Description 2',
       creationDate: new Date(),
       dueDate: new Date(),
-      completed: true
+      completed: true,
+      status: TaskStatus.Done
     },
     {
       id: '3',
@@ -32,7 +34,35 @@ export class TaskService {
       description: 'Description 3',
       creationDate: new Date(),
       dueDate: new Date(),
-      completed: false
+      completed: false,
+      status: TaskStatus.InProgress
+    },
+    {
+      id: '4',
+      title: 'Task 4',
+      description: 'Description 4',
+      creationDate: new Date(),
+      dueDate: new Date(),
+      completed: false,
+      status: TaskStatus.InProgress
+    },
+    {
+      id: '5',
+      title: 'Task 5',
+      description: 'Description 5',
+      creationDate: new Date(),
+      dueDate: new Date(),
+      completed: false,
+      status: TaskStatus.Todo
+    },
+    {
+      id: '6',
+      title: 'Task 6',
+      description: 'Description 6',
+      creationDate: new Date(),
+      dueDate: new Date(),
+      completed: false,
+      status: TaskStatus.Todo
     }
   ];
 
@@ -64,7 +94,8 @@ export class TaskService {
     // return this.http.put<Task>(`${environment.apiUrl}/tasks/${task.id}`, task);
     return new Observable<Task>(observer => {
       const index = this.fakeTasks.findIndex(t => t.id === task.id);
-      this.fakeTasks[index] = task;
+      console.log("==== index ====", index);
+      // this.fakeTasks[index] = task;
       observer.next(task);
     });
   }

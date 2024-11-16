@@ -5,9 +5,20 @@
 <div *ngIf="error$ | async as error" class="error">
     {{ error.message }}
 </div>
-  
-<ul>
-    <li *ngFor="let task of tasks$ | async">
-        <app-task-item [task]="task" (deleted)="onDelete(task)"></app-task-item>
-    </li>
-</ul>
+
+<div class="flex flex-wrap pb-2 justify-around">
+    <p-panel class="panel flex flex-col justify-between min-h-60" 
+    *ngFor="let status of taskStatus$" 
+    [header]="status" [toggleable]="true"
+    pDroppable (onDrop)="drop(status)"> 
+        @for (task of tasks$ | async; track $index) {
+            <app-task-item 
+            class="mt-2 w-full" 
+            *ngIf="task.status == status" 
+            [task]="task" 
+            (deleted)="onDelete(task)"
+            pDraggable (onDragStart)="dragStart(task)" 
+            (onDragEnd)="dragEnd()"></app-task-item>
+        } 
+    </p-panel>
+</div>

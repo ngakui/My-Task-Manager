@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
-import { filter, Observable } from 'rxjs';
+import { Component, Input } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Task } from '../../models/task.model';
 import { ActivatedRoute } from '@angular/router';
-import { select, Store } from '@ngrx/store';
-import { selectTaskById } from '../../store/selectors/tasks.selectors';
+import { Store } from '@ngrx/store';
 import * as TasksActions  from '../../store/actions/tasks.actions';
 import { TaskFormComponent } from "../../components/task-form/task-form.component";
 import { CommonModule } from '@angular/common';
@@ -17,20 +16,22 @@ import { CommonModule } from '@angular/common';
 })
 export class TaskDetailComponent {
 
+  @Input() task!: Task;
   task$!: Observable<Task>;
 
   constructor(private route: ActivatedRoute, private store: Store ) { }
 
   ngOnInit(): void {
-    const taskId = this.route.snapshot.paramMap.get('id') || '';
-    console.log('Task ID', taskId);
-    this.task$ = this.store.pipe(
-      select(selectTaskById(taskId)),
-      filter((task): task is Task => task !== undefined)
-    );
+    
+    // this.store.dispatch(TasksActions.loadOneTask({ id: this.task.id }));
+    // this.task$ = this.store.pipe(
+    //   select(selectTaskById(this.task.id)),
+    //   filter((task): task is Task => task !== undefined)
+    // );
   }
 
   onUpdate(task: Task): void {
+    console.log('Update task', task);
     this.store.dispatch(TasksActions.updateTask({ task }));
   }
 

@@ -1,0 +1,11 @@
+.panel{
+    width: 300px;
+    height: 450px;
+}
+:host ::ng-deep .p-panel-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}

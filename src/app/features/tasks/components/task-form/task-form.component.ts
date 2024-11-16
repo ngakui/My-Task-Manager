@@ -7,6 +7,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-task-form',
@@ -16,6 +17,7 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatCheckboxModule,
     ReactiveFormsModule,
     MatButtonModule
@@ -49,7 +51,7 @@ export class TaskFormComponent implements OnInit {
         ...this.taskForm.value,
         id: this.task?.id || Math.random().toString(36).substr(2, 9)
       } as Task;
-      this.save.emit(this.taskForm.value);
+      this.save.emit(task);
     }
   }
 }

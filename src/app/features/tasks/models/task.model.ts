@@ -7,5 +7,11 @@ export interface Task {
     dueDate: Date;
     completed: boolean;
     //priority: TaskPriority;
-    //status: TaskStatus;
+    status: TaskStatus;
+}
+
+export enum TaskStatus {
+    Todo = 'To do',
+    InProgress = 'In progress',
+    Done = 'Done'
 }
