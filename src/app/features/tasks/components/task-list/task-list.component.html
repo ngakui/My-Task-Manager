@@ -1,7 +1,13 @@
-<div *ngIf="loading$ | async" class="spinner">
-    <!-- <app-loading-spinner></app-loading-spinner> -->
+<!-- <div *ngIf="loading$ | async" class="spinner">
+    <app-loading-spinner></app-loading-spinner>
+</div> -->
+
+<div class="mb-4">
+    <button>
+        <a [routerLink]="['/home']"><i class="pi pi-home"></i>Home</a>
+    </button>
 </div>
-  
+
 <div *ngIf="error$ | async as error" class="error">
     {{ error.message }}
 </div>
