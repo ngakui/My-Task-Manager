@@ -31,7 +31,32 @@ export class TaskItemComponent implements OnInit{
   constructor() { }
 
   ngOnInit(): void {
-    this.taskClass = 'rounded-xl border border-zinc-300 shadow-xl p-3 task'+this.task.id;
+    this.taskClass = 'relative rounded-xl border border-zinc-300 shadow-xl p-3 task'+this.task.id;
+  }
+
+  onMouseOver(id: string) {
+    const timeline = gsap.timeline();
+    if(this.task.id == id) {
+      timeline.to(".task"+this.task.id, 
+        {
+          onUpdate: () => {
+            // gsap.to(".one-piece", { x: 150, y: -80, duration: 1});
+            document.querySelector('.one-piece'+id)?.setAttribute('style', 'display: block;');
+          }, 
+        }).play();
+    }
+  }
+
+  onMouseOut(id: string) {
+    const timeline = gsap.timeline();
+    if (this.task.id == id) {
+      timeline.to(".task"+this.task.id,
+        {
+          onUpdate: () => {
+            document.querySelector('.one-piece'+id)?.setAttribute('style', 'display: none;');
+          },
+        }).play();
+    }
   }
 
   onDelete(): void {

@@ -1,4 +1,4 @@
-<div #taskId [class]="taskClass">
+<div #taskId (mouseover)="onMouseOver(task.id)" (mouseout)="onMouseOut(task.id)" [class]="taskClass">
     <div class="flex flex-row justify-between">
         <h3>{{ task.title }}</h3>
         <i class="pi pi-pencil" (click)="showDialog()"></i>
@@ -7,6 +7,9 @@
     <p>Due: {{ task.dueDate | date }}</p>
     <p>status: {{ task.status }}</p>
     <!-- <p-button label="Delete" (click)="onDelete()"></p-button> -->
+    <div [class]="'absolute top-8 right-2 hidden one-piece'+this.task.id">
+        <img [src]="'./assets/images/one-piece-luffy'+task.id+'.gif'" alt="One Piece" width="100">
+    </div>
 </div>
 <p-dialog header="Edit Task" transitionOptions="500ms cubic-bezier(0, 0, 0.2, 1)" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
     <app-task-detail [task]="task"></app-task-detail>

@@ -12,7 +12,7 @@ export class TaskService {
   private fakeTasks: Task[] = [
     {
       id: '1',
-      title: 'Task 1',
+      title: 'Become the Pirate King',
       description: 'Description 1',
       creationDate: new Date(),
       dueDate: new Date(),
@@ -21,7 +21,7 @@ export class TaskService {
     },
     {
       id: '2',
-      title: 'Task 2',
+      title: 'Kill Kaïdo',
       description: 'Description 2',
       creationDate: new Date(),
       dueDate: new Date(),
@@ -30,7 +30,7 @@ export class TaskService {
     },
     {
       id: '3',
-      title: 'Task 3',
+      title: 'Overthrow the Donquichotte Family',
       description: 'Description 3',
       creationDate: new Date(),
       dueDate: new Date(),
@@ -39,7 +39,7 @@ export class TaskService {
     },
     {
       id: '4',
-      title: 'Task 4',
+      title: 'Help Dr Vegapunk',
       description: 'Description 4',
       creationDate: new Date(),
       dueDate: new Date(),
@@ -48,7 +48,7 @@ export class TaskService {
     },
     {
       id: '5',
-      title: 'Task 5',
+      title: 'Retrieve the One Piece',
       description: 'Description 5',
       creationDate: new Date(),
       dueDate: new Date(),
@@ -57,7 +57,7 @@ export class TaskService {
     },
     {
       id: '6',
-      title: 'Task 6',
+      title: 'Activate the Gear 6',
       description: 'Description 6',
       creationDate: new Date(),
       dueDate: new Date(),
