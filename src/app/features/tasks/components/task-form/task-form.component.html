@@ -19,9 +19,14 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   
-    <mat-checkbox formControlName="completed">Completed</mat-checkbox>
+    <div class="w-100">
+        <p-dropdown class="w-1/4"
+          formControlName="status" 
+          [options]="taskStatus"
+          placeholder="Select a status" />
+    </div>
   
-    <button mat-raised-button color="primary" type="submit" [disabled]="taskForm.invalid">
+    <button class="mt-2" mat-raised-button color="primary" type="submit" [disabled]="taskForm.invalid">
       Save
     </button>
 </form>
