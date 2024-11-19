@@ -42,25 +42,20 @@ export class TaskListComponent implements OnInit {
   }
 
   onDelete(task: Task): void {
-    console.log('Delete task in List', task.id);
     this.store.dispatch(TasksActions.deleteTask({ task }));
   }
 
   dragStart(task: Task): void {
-    console.log('Drag start', task);
     this.draggedTask = task;
   }
 
   drop(status: TaskStatus): void {
-    console.log('Drop event', status);
-    console.log('Dragged task', this.draggedTask);
     if (this.draggedTask && this.draggedTask.id) {
       this.store.dispatch(TasksActions.updateTask({ task: { ...this.draggedTask, status: status } }));
     }
   }
 
   dragEnd(): void {
-    console.log('Drag end');
     this.draggedTask = null;
   }
 }

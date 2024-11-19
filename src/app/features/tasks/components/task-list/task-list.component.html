@@ -1,30 +1,31 @@
-<!-- <div *ngIf="loading$ | async" class="spinner">
-    <app-loading-spinner></app-loading-spinner>
-</div> -->
-
-<div class="mb-4">
-    <button>
-        <a [routerLink]="['/home']"><i class="pi pi-home"></i>Home</a>
-    </button>
-</div>
-
-<div *ngIf="error$ | async as error" class="error">
-    {{ error.message }}
-</div>
-
-<div class="flex flex-wrap pb-2 justify-around">
-    <p-panel class="panel flex flex-col justify-between min-h-60" 
-    *ngFor="let status of taskStatus$" 
-    [header]="status" [toggleable]="true"
-    pDroppable (onDrop)="drop(status)"> 
-        @for (task of tasks$ | async; track $index) {
-            <app-task-item 
-            class="mt-2 w-full" 
-            *ngIf="task.status == status" 
-            [task]="task" 
-            (deleted)="onDelete(task)"
-            pDraggable (onDragStart)="dragStart(task)" 
-            (onDragEnd)="dragEnd()"></app-task-item>
-        } 
-    </p-panel>
+<div class="px-14">
+    <!-- <div *ngIf="loading$ | async" class="spinner">
+        <app-loading-spinner></app-loading-spinner>
+    </div> -->
+    <div class="mb-4">
+        <button>
+            <a [routerLink]="['/home']"><img src="./assets/images/luffy-gear5-jump.gif" alt="luffy-jump" width="50"/><i class="pi pi-home"></i> Home</a>
+        </button>
+    </div>
+    
+    <div *ngIf="error$ | async as error" class="error">
+        {{ error.message }}
+    </div>
+    
+    <div class="flex flex-wrap pb-2 justify-between">
+        <p-panel class="panel flex flex-col justify-between min-h-60" 
+        *ngFor="let status of taskStatus$" 
+        [header]="status" [toggleable]="true"
+        pDroppable (onDrop)="drop(status)"> 
+            @for (task of tasks$ | async; track $index) {
+                <app-task-item 
+                class="mt-2 w-full" 
+                *ngIf="task.status == status" 
+                [task]="task" 
+                (deleted)="onDelete(task)"
+                pDraggable (onDragStart)="dragStart(task)" 
+                (onDragEnd)="dragEnd()"></app-task-item>
+            } 
+        </p-panel>
+    </div>
 </div>
