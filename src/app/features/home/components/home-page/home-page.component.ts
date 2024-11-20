@@ -49,7 +49,7 @@ export class HomePageComponent implements OnInit {
             //   { y: 100, x: 750, rotation: 360, duration: 1}
             // );
             timeline.to(".luffy-jump", {
-              y: 300, x: 450, duration: 1, transform: "scale(1.5)",
+              y: 350, x: 450, duration: 1, transform: "scale(1.5)",
               onComplete: () => {
                 document.querySelector('.luffy-jump')?.setAttribute('style', 'display: none !important;');
                 document.querySelector('.home-section')?.classList.add('bg-[url("../../../../../assets/images/luffy_gear5.gif")]');
