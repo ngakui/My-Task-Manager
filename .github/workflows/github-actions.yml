@@ -23,7 +23,7 @@ jobs:
               run: npm install
 
             - name: Run tests
-              run: npm test:headless
+              run: npm test
 
             - name: Run linter
               run: npm run lint
