@@ -1,18 +1,25 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { TaskService } from './task.service';
 import { Task, TaskStatus } from '../models/task.model';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('TaskService', () => {
   let service: TaskService;
+  let httpMock: HttpTestingController;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
+    beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [],
+      providers: [TaskService, provideHttpClientTesting(), HttpClient, HttpHandler]
+    });
     service = TestBed.inject(TaskService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  afterEach(() => {
+    httpMock.verify();
   });
 
   it('should return a list of tasks', (done) => {
