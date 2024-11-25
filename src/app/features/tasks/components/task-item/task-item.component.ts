@@ -34,7 +34,7 @@ export class TaskItemComponent implements OnInit{
   constructor() { }
 
   ngOnInit(): void {
-    this.taskClass = 'relative rounded-xl border border-zinc-300 shadow-xl p-3 task'+this.task.id;
+    this.taskClass = 'relative rounded-xl border border-zinc-300 shadow-xl p-3 task'+this.task?.id;
   }
 
   onMouseOver(id: string) {

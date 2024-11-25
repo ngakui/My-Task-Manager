@@ -1,4 +1,4 @@
-<div #taskId (mouseover)="onMouseOver(task.id)" (mouseout)="onMouseOut(task.id)" [class]="taskClass">
+<div *ngIf="task" #taskId (mouseover)="onMouseOver(task.id)" (mouseout)="onMouseOut(task.id)" [class]="taskClass">
     <div class="flex flex-row justify-between">
         <h3>{{ task.title }}</h3>
         <i class="pi pi-pencil" (click)="showDialog()"></i>
