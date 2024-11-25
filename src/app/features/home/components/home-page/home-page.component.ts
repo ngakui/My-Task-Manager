@@ -12,6 +12,8 @@ import { ScrollTrigger } from 'gsap/all';
 })
 export class HomePageComponent implements OnInit {
 
+  public title = 'Welcome to Luffy Task Organizer';
+
   constructor() { }
 
   ngOnInit(): void {
