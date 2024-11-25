@@ -6,11 +6,15 @@ import { TasksEffects } from './tasks.effects';
 import { Action } from '@ngrx/store';
 import { TaskService } from '../../services/task.service';
 import { TaskStatus } from '../../models/task.model';
+import { cold, hot } from 'jasmine-marbles';
 
 describe('TasksEffects', () => {
   let actions$: Observable<Action>;
   let effects: TasksEffects;
   let taskServiceSpy: jasmine.SpyObj<TaskService>;
+
+  const mockTask = { id: '1', title: 'Task 1', description: 'Description 1', status: TaskStatus.Todo, creationDate: new Date(), dueDate: new Date(), completed: false };
+  const mockTasks = [mockTask];
 
   beforeEach(() => {
     const spy = jasmine.createSpyObj('TaskService', ['getTasks', 'getTask', 'createTask', 'updateTask', 'deleteTask']);
@@ -30,68 +34,44 @@ describe('TasksEffects', () => {
     expect(effects).toBeTruthy();
   });
 
-  it('should dispatch loadTasksSuccess action', (done) => {
-    const tasks = [{ id: '1', title: 'Task 1', description: 'Description 1', status: TaskStatus.Todo, creationDate: new Date(), dueDate: new Date(), completed: false }];
-    actions$ = TestBed.inject(TasksActions.loadTasks);
-    taskServiceSpy.getTasks.and.returnValue(new Observable(observer => {
-      observer.next(tasks);
-    }));
+  it('should dispatch loadTasksSuccess action', () => {
+    
+    taskServiceSpy.getTasks.and.returnValue(cold('-a|', { a: mockTasks }));
+    actions$ = hot('-a|', { a: TasksActions.loadTasks });
 
-    effects.loadTasks$.subscribe(action => {
-      expect(action).toEqual(TasksActions.loadTasksSuccess({ tasks }));
-      done();
-    });
+    const expected = cold('--b|', { b: TasksActions.loadTasksSuccess({ tasks: mockTasks }) });
+    expect(effects.loadTasks$).toBeObservable(expected);  
   });
 
-  it('should dispatch loadOneTaskSuccess action', (done) => {
-    const task = { id: '1', title: 'Task 1', description: 'Description 1', status: TaskStatus.Todo, creationDate: new Date(), dueDate: new Date(), completed: false };
-    actions$ = TestBed.inject(TasksActions.loadOneTask);
-    taskServiceSpy.getTask.and.returnValue(new Observable(observer => {
-      observer.next(task);
-    }));
+  it('should dispatch loadOneTaskSuccess action', () => {
+    taskServiceSpy.getTask.and.returnValue(cold('-a|', { a: mockTask }));
+    actions$ = hot('-a|', { a: TasksActions.loadOneTask({ id: '1' }) });
 
-    effects.loadOneTask$.subscribe(action => {
-      expect(action).toEqual(TasksActions.loadOneTaskSuccess({ task }));
-      done();
-    });
+    const expected = cold('--b|', { b: TasksActions.loadOneTaskSuccess({ task: mockTask }) });
+    expect(effects.loadOneTask$).toBeObservable(expected);
   });
 
-  it('should dispatch createTaskSuccess action', (done) => {
-    const task = { id: '1', title: 'Task 1', description: 'Description 1', status: TaskStatus.Todo, creationDate: new Date(), dueDate: new Date(), completed: false };
-    actions$ = TestBed.inject(TasksActions.createTask);
-    taskServiceSpy.createTask.and.returnValue(new Observable(observer => {
-      observer.next(task);
-    }));
+  it('should dispatch createTaskSuccess action', () => {
+    taskServiceSpy.createTask.and.returnValue(cold('-a|', { a: mockTask }));
+    actions$ = hot('-a|', { a: TasksActions.createTask({ task: mockTask }) });
 
-    effects.createTask$.subscribe(action => {
-      expect(action).toEqual(TasksActions.createTaskSuccess({ task }));
-      done();
-    });
+    const expected = cold('--b|', { b: TasksActions.createTaskSuccess({ task: mockTask }) });
+    expect(effects.createTask$).toBeObservable(expected);
   });
 
-  it('should dispatch updateTaskSuccess action', (done) => {
-    const task = { id: '1', title: 'Task 1', description: 'Description 1', status: TaskStatus.Todo, creationDate: new Date(), dueDate: new Date(), completed: false };
-    actions$ = TestBed.inject(TasksActions.updateTask);
-    taskServiceSpy.updateTask.and.returnValue(new Observable(observer => {
-      observer.next(task);
-    }));
+  it('should dispatch updateTaskSuccess action', () => {
+    taskServiceSpy.updateTask.and.returnValue(cold('-a|', { a: mockTask }));
+    actions$ = hot('-a|', { a: TasksActions.updateTask({ task: mockTask }) });
 
-    effects.updateTask$.subscribe(action => {
-      expect(action).toEqual(TasksActions.updateTaskSuccess({ task }));
-      done();
-    });
+    const expected = cold('--b|', { b: TasksActions.updateTaskSuccess({ task: mockTask }) });
+    expect(effects.updateTask$).toBeObservable(expected);
   });
 
-  it('should dispatch deleteTaskSuccess action', (done) => {
-    const task = { id: '1', title: 'Task 1', description: 'Description 1', status: TaskStatus.Todo, creationDate: new Date(), dueDate: new Date(), completed: false };
-    actions$ = TestBed.inject(TasksActions.deleteTask);
-    taskServiceSpy.deleteTask.and.returnValue(new Observable(observer => {
-      observer.next();
-    }));
+  it('should dispatch deleteTaskSuccess action', () => {
+    taskServiceSpy.deleteTask.and.returnValue(cold('-a|'));
+    actions$ = hot('-a|', { a: TasksActions.deleteTask({ task: mockTask }) });
 
-    effects.deleteTask$.subscribe(action => {
-      expect(action).toEqual(TasksActions.deleteTaskSuccess({ task }));
-      done();
-    });
+    const expected = cold('--b|', { b: TasksActions.deleteTaskSuccess({ task: mockTask }) });
+    expect(effects.deleteTask$).toBeObservable(expected);
   });
 });
