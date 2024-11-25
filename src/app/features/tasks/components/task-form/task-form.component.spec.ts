@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TaskFormComponent } from './task-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('TaskFormComponent', () => {
   let component: TaskFormComponent;
@@ -8,7 +9,7 @@ describe('TaskFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaskFormComponent]
+      imports: [TaskFormComponent, BrowserAnimationsModule]
     })
     .compileComponents();
 

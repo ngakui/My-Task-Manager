@@ -23,15 +23,9 @@ export class TaskDetailComponent {
 
   ngOnInit(): void {
     
-    // this.store.dispatch(TasksActions.loadOneTask({ id: this.task.id }));
-    // this.task$ = this.store.pipe(
-    //   select(selectTaskById(this.task.id)),
-    //   filter((task): task is Task => task !== undefined)
-    // );
   }
 
   onUpdate(task: Task): void {
-    console.log('Update task', task);
     this.store.dispatch(TasksActions.updateTask({ task }));
   }
 

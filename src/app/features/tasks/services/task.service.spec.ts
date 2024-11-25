@@ -1,18 +1,25 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { TaskService } from './task.service';
-import { Task } from '../models/task.model';
+import { Task, TaskStatus } from '../models/task.model';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('TaskService', () => {
   let service: TaskService;
+  let httpMock: HttpTestingController;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
+    beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [],
+      providers: [TaskService, provideHttpClientTesting(), HttpClient, HttpHandler]
+    });
     service = TestBed.inject(TaskService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  afterEach(() => {
+    httpMock.verify();
   });
 
   it('should return a list of tasks', (done) => {
@@ -36,7 +43,8 @@ describe('TaskService', () => {
       description: 'Description 4',
       creationDate: new Date(),
       dueDate: new Date(),
-      completed: false
+      completed: false,
+      status: TaskStatus.Todo
     };
 
     service.createTask(task).subscribe(createdTask => {
@@ -52,7 +60,8 @@ describe('TaskService', () => {
       description: 'Description 1',
       creationDate: new Date(),
       dueDate: new Date(),
-      completed: true
+      completed: true,
+      status: TaskStatus.Done
     };
 
     service.updateTask(task).subscribe(updatedTask => {
