@@ -3,80 +3,99 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from 'gsap/all';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AnimationService {
   private renderer: Renderer2;
 
-  constructor(rendererFactory: RendererFactory2) { 
+  constructor(rendererFactory: RendererFactory2) {
     this.renderer = rendererFactory.createRenderer(null, null);
     gsap.registerPlugin(ScrollTrigger);
   }
 
   createLuffyAnimation(): void {
-    const timeline = gsap.timeline();
-    timeline.to(SELECTORS.luffyJump, { y: -100, x: 100, delay: 1.5, duration: 1 });
-    timeline.to(SELECTORS.luffyJump, { x: 300, rotation: 360, duration: 1 });
-    timeline.to(SELECTORS.luffyJump, { x: 600, rotation: 720, duration: 2 });
+    const timeline = this.animateLuffyJump();
     timeline.to(SELECTORS.luffyJump, {
-      y: 0, x: 700, rotation: 1080, duration: 1,
+      y: 0,
+      x: 700,
+      rotation: 1080,
+      duration: 1,
       onUpdate: () => {
-        this.updateImageSelector(SELECTORS.luffyJump, './assets/images/luffy_gear5_png1.gif');
+        this.updateElementAttribute(SELECTORS.luffyJump + ' img', 'src', IMAGE_PATHS.luffyJump1);
       },
-      transform: "scale(3)",
+      transform: 'scale(3)',
       onComplete: () => {
-        this.updateStyleSelector(SELECTORS.luffyJump, 'display: none !important;');
-        this.addClassSelector(SELECTORS.home, 'bg-[url("../../../../../assets/images/luffy_gear5.gif")]');
-        this.updateStyleSelector(SELECTORS.home, 'background-size: cover;');
-        this.setupScrollAnimation(timeline);
+        this.updateElementStyle(SELECTORS.luffyJump, 'display: none !important;');
+        this.toggleClass(SELECTORS.home, IMAGE_PATHS.gear6);
+        this.updateElementStyle(SELECTORS.home, 'background-size: cover;');
+        this.setupScrollAnimation();
       },
     });
   }
 
-  private setupScrollAnimation(timeline: GSAPTimeline): void {
-    ScrollTrigger.create({
-      trigger: SELECTORS.home,
-      start: "100px top",
-      end: "-300px bottom",
-      endTrigger: SELECTORS.homeSection,
+  private setupScrollAnimation(): void {
+    this.createScrollTrigger(SELECTORS.home, {
+      start: '100px top',
+      end: '-300px bottom',
       once: true,
-      scrub: false,
       onUpdate: () => {
-        this.updateImageSelector(SELECTORS.luffyJump, './assets/images/luffy_gear5_png2.gif');
-        this.updateStyleSelector(SELECTORS.luffyJump, 'display: block !important;');
-        timeline.to(SELECTORS.luffyJump,
-          { y: 250, x: 700, duration: 1, yoyo: true, repeat: 2, }
-        );
-        timeline.to(SELECTORS.luffyJump, {
-          y: 350, x: 450, duration: 1, transform: "scale(1.5)",
-          onComplete: () => {
-            this.updateStyleSelector(SELECTORS.luffyJump, 'display: none !important;');
-            this.addClassSelector(SELECTORS.homeSection, 'bg-[url("../../../../../assets/images/luffy_gear5.gif")]');
-            this.updateStyleSelector(SELECTORS.homeSection, 'background-size: cover;');
-          }
-        })
+        this.updateElementAttribute(SELECTORS.luffyJump + ' img', 'src', IMAGE_PATHS.luffyJump2);
+        this.updateElementStyle(SELECTORS.luffyJump, 'display: block !important;');
+        const timeline = gsap.timeline();
+        timeline
+          .to(SELECTORS.luffyJump, { y: 250, x: 700, duration: 1, yoyo: true, repeat: 2 })
+          .to(SELECTORS.luffyJump, {
+            y: 350,
+            x: 450,
+            duration: 1,
+            transform: 'scale(1.5)',
+            onComplete: () => {
+              this.updateElementStyle(SELECTORS.luffyJump, 'display: none !important;');
+              this.toggleClass(SELECTORS.homeSection, IMAGE_PATHS.gear5);
+              this.updateElementStyle(SELECTORS.homeSection, 'background-size: cover;');
+            },
+          });
       },
     });
   }
 
-  updateImageSelector(selector: string, value: string): void {
-    const element = document.querySelector(selector);
+  private animateLuffyJump(): GSAPTimeline {
+    return gsap.timeline()
+      .to(SELECTORS.luffyJump, { y: -100, x: 100, delay: 1.5, duration: 1 })
+      .to(SELECTORS.luffyJump, { x: 300, rotation: 360, duration: 1 })
+      .to(SELECTORS.luffyJump, { x: 600, rotation: 720, duration: 2 });
+  }
+
+  private createScrollTrigger(trigger: string, config: Partial<ScrollTrigger.Vars>): void {
+    ScrollTrigger.create({
+      trigger,
+      scrub: true,
+      ...config,
+    });
+  }
+
+  private getElement(selector: string): HTMLElement | null {
+    return document.querySelector(selector);
+  }
+
+  private updateElementAttribute(selector: string, attribute: string, value: string): void {
+    const element = this.getElement(selector);
     if (element) {
-      this.renderer.setAttribute(element, 'src', value);
+      this.renderer.setAttribute(element, attribute, value);
     }
   }
 
-  updateStyleSelector(selector: string, value: string): void {
-    const element = document.querySelector(selector);
+  private updateElementStyle(selector: string, style: string): void {
+    const element = this.getElement(selector);
     if (element) {
-      this.renderer.setAttribute(element, 'style', value);
+      this.renderer.setAttribute(element, 'style', style);
     }
   }
 
-  addClassSelector(selector: string, value: string): void {
-    const element = document.querySelector(selector);
+  private toggleClass(selector: string, className: string, add: boolean = true): void {
+    const element = this.getElement(selector);
     if (element) {
-      this.renderer.addClass(element, value);
+      add ? this.renderer.addClass(element, className) : this.renderer.removeClass(element, className);
     }
   }
 }
@@ -85,4 +104,12 @@ const SELECTORS = {
   luffyJump: '.luffy-jump',
   home: '.home',
   homeSection: '.home-section',
-};
+} as const;
+
+const IMAGE_PATHS = {
+  luffyJump1: './assets/images/luffy_gear5_png3.gif',
+  luffyJump2: './assets/images/luffy_gear5_png2.gif',
+  gear6: 'bg-[url("../../../../../assets/images/luffy_gear6.gif")]',
+  gear5: 'bg-[url("../../../../../assets/images/luffy_gear5.gif")]',
+} as const;
+//bg-[url("../../../../../assets/images/luffy_gear6.gif")]
