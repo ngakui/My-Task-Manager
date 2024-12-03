@@ -21,4 +21,13 @@ describe('TaskFormComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should verify the form is invalid when empty', () => {
+    expect(component.taskForm.valid).toBeFalsy();
+  } );
+
+  it('should verify the title field is invalid when empty', () => {
+    const title = component.taskForm.controls['title'];
+    expect(title.valid).toBeFalsy();
+  });
 });
