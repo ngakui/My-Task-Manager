@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AnimationService } from '../../services/animation.service';
 
@@ -9,7 +9,7 @@ import { AnimationService } from '../../services/animation.service';
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements AfterViewInit {
 
   public title: string = 'Welcome to Luffy Task Organizer';
 
@@ -17,7 +17,7 @@ export class HomePageComponent implements OnInit {
     
   }
 
-  ngOnInit(): void {  
+  ngAfterViewInit(): void {  
     this.animationService.createLuffyAnimation();
   }
 
